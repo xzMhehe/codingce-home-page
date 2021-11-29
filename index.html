@@ -58,9 +58,14 @@
                         <img src="./img/logo2.jpg" width="80" alt="Dmego`s logo" class="js-avatar iUp show" />
                     </a> -->
                     <h1 class="panel-cover__title panel-title iUp">
-                        <a href="#" title="Dmego Home">JingQingQiu</a>
+                        <a href="#" title="Dmego Home">敬清秋</a>
                     </h1>
-                    <p class="panel-cover__subtitle panel-subtitle iUp">Code Create Life</p>
+                    <div id="typed-strings" class="panel-subtitle iUp">
+                        <p>The depth of thinking <strong>determines</strong> your altitude.</p>
+                    </div>
+                    <span id="typed" class="panel-cover__subtitle iUp"></span>
+
+                    <!-- <p class="panel-cover__subtitle panel-subtitle iUp">Code Create Life</p> -->
                     <hr class="panel-cover__divider iUp" />
                     <p id="description" class="panel-cover__description iUp">如何得与凉风约，不共尘沙一并来!
                         <br/>
@@ -121,10 +126,6 @@
             </div>
             <div class="panel-cover--overlay cover-slate"></div>
         </div>
-        <!-- <div class="beian iUp">
-            <a class="icp" href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">XXX</a>
-            <a class="gwab" href="http://www.beian.gov.cn/portal/recordQuery" target="_blank">XXX</a>
-        </div> -->
         <div class="remark iUp">
             <p class="power">Powered By 
                 <a href="https://bird.ioliu.cn/" target="_blank"> JsonBird </a> And 
@@ -140,6 +141,18 @@
     <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="./assets/js/fetch.min.js"></script>
     <script type="text/javascript" src="./assets/js/main.js"></script>
+    <script type="text/javascript" src="./assets/js/typed.js@2.0.11"></script>
+    <script>
+        var typed = new Typed('#typed', {
+        stringsElement: '#typed-strings',
+        typeSpeed: 40,
+        loop: true,
+        backSpeed: 25,
+        backDelay: 1000
+        });
+
+        console.log("微信公众号：后端码匠")
+    </script>
 </body>
 
 </html>
