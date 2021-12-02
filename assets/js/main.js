@@ -68,7 +68,7 @@ $(document).ready(function () {
 			// },
 			url: url,
 			success: function (result) {
-				alert("正确提示： " + result.status + " " + JSON.stringify(result.images));
+				// alert("正确提示： " + result.status + " " + JSON.stringify(result.images));
 				console.log("result: ", JSON.stringify(result))
 				images = result.images;
 				for (let i = 0; i < images.length; i++) {
