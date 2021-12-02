@@ -83,7 +83,7 @@ $(document).ready(function () {
 				sessionStorage.setItem("index", index);
 			},
 			error: function (result) {
-				alert("错误提示： " + result.status + " " + JSON.stringify(result));
+				// alert("错误提示： " + result.status + " " + JSON.stringify(result));
 			},
 		})
 
