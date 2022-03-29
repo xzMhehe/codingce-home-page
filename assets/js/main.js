@@ -27,96 +27,33 @@ var iUp = (function () {
 	}
 })();
 
-$(document).ready(function () {
-
-	// 获取一言数据
-	fetch('https://v1.hitokoto.cn').then(function (res) {
-		return res.json();
-	}).then(function (e) {
-		$('#description').html(e.hitokoto + "<br/> -「<strong>" + e.from + "</strong>」")
-	}).catch(function (err) {
-		console.error(err);
-	})
-
-
-	// var url = 'https://query.yahooapis.com/v1/public/yql' + 
-	// '?q=' + encodeURIComponent('select * from json where url=@url') +
-	// '&url=' + encodeURIComponent('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8') +
-	// '&format=json&callback=?';
-
+function getBingImages(imgUrls) {
 	/**
 	 * 获取Bing壁纸
-	 * 原先 YQL 已经无法提供服务了
-	 * 改用 JsonBird：https://bird.ioliu.cn/
-	 * 
+	 * 先使用 GitHub Action 每天获取 Bing 壁纸 URL 并更新 images.json 文件
+	 * 然后读取 images.json 文件中的数据
 	 */
-	var url = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8';
-	var url2 = 'https://www.bing.com';
-	var imgUrls = JSON.parse(sessionStorage.getItem("imgUrls"));
-	var index = sessionStorage.getItem("index");
+	var indexName = "bing-image-index";
+	var index = sessionStorage.getItem(indexName);
 	var $panel = $('#panel');
-	if (imgUrls == null) {
-		imgUrls = new Array();
-		index = 0;
+	if (isNaN(index) || index == 7) index = 0;
+	else index++;
+	var imgUrl = imgUrls[index];
+	var url = "https://www.bing.com" + imgUrl;
+	$panel.css("background", "url('" + url + "') center center no-repeat #666");
+	$panel.css("background-size", "cover");
+	sessionStorage.setItem(indexName, index);
+}
 
-		$.ajax({
-			type: 'GET',
-			crossDomain: true,
-			dataType: 'jsonp',
-			// headers: {
-			// 	"Access-Control-Allow-Origin:": "*"
-			// },
-			url: url,
-			success: function (result) {
-				// alert("正确提示： " + result.status + " " + JSON.stringify(result.images));
-				console.log("result: ", JSON.stringify(result))
-				images = result.images;
-				for (let i = 0; i < images.length; i++) {
-					const item = images[i];
-					imgUrls.push(item.url);
-				}
-				var imgUrl = imgUrls[index];
-				var url = "https://www.bing.com" + imgUrl;
-				$panel.css("background", "url('" + url1 + "') center center no-repeat #666");
-				$panel.css("background-size", "cover");
-				sessionStorage.setItem("imgUrls", JSON.stringify(imgUrls));
-				sessionStorage.setItem("index", index);
-			},
-			error: function (result) {
-				// alert("错误提示： " + result.status + " " + JSON.stringify(result));
-			},
-		})
-
-		// $.get(url, function (result) {
-		// 	console.log("result: ", JSON.stringify(result))
-		// 	images = result.images;
-		// 	for (let i = 0; i < images.length; i++) {
-		// 		const item = images[i];
-		// 		imgUrls.push(item.url);
-		// 	}
-		// 	var imgUrl = imgUrls[index];
-		// 	var url = "https://www.bing.com" + imgUrl;
-		// 	$panel.css("background", "url('" + url + "') center center no-repeat #666");
-		// 	$panel.css("background-size", "cover");
-		// 	sessionStorage.setItem("imgUrls", JSON.stringify(imgUrls));
-		// 	sessionStorage.setItem("index", index);
-		// });
-	} else {
-		if (index == 7)
-			index = 0;
-		else
-			index++;
-		var imgUrl = imgUrls[index];
-		var url = "https://www.bing.com" + imgUrl;
-		$panel.css("background", "url('" + url + "') center center no-repeat #666");
-		$panel.css("background-size", "cover");
-		sessionStorage.setItem("index", index);
-	}
+$(document).ready(function () {
+	// 获取一言数据
+	$.get('https://v1.hitokoto.cn', function (res) {
+		$('#description').html(res.hitokoto + "<br/> -「<strong>" + res.from + "</strong>」")
+	});
 
 	$(".iUp").each(function (i, e) {
 		iUp.up(e);
 	});
-
 	$(".js-avatar")[0].onload = function () {
 		$(".js-avatar").addClass("show");
 	}
