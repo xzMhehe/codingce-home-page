@@ -16,7 +16,7 @@
 
 >静态图
 
-![主页PNG](http://image.codingce.com.cn/githubhome.png)
+![主页PNG](https://raw.githubusercontent.com/xzMhehe/StaticFile_CDN/main/static/img/mo/20240126114805.png)
 
 ### 注
 
@@ -39,4 +39,4 @@
 
 ### 更新时间
 
->2022-03-14
+>2024-01-26
